@@ -39,352 +39,346 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ScrollView
-            android:id="@+id/scrollView"
+        <LinearLayout
+            android:id="@+id/linearLayout4"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="vertical"
+            android:weightSum="1"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
             <LinearLayout
+                android:id="@+id/linearLayout3"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/linearLayout4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#A6A6E1FA"
                     android:orientation="vertical"
-                    android:weightSum="1"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+                    tools:ignore="NestedWeights">
 
-                    <LinearLayout
-                        android:id="@+id/linearLayout3"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="#A6A6E1FA"
-                            android:orientation="vertical"
-                            tools:ignore="NestedWeights">
-
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:src="@drawable/sunrise"
-                                app:tint="#28303E" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="10dp" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Sunrise" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="5dp" />
-
-                            <TextView
-                                android:id="@+id/tv_sunrise"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="5:45 AM" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="5dp" />
-
-
-                        </LinearLayout>
-
-                        <Space
-                            android:layout_width="20dp"
-                            android:layout_height="match_parent" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="#A6A6E1FA"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:src="@drawable/sunset"
-                                app:tint="#28303E" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="10dp" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Sunset" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="5dp" />
-
-                            <TextView
-                                android:id="@+id/tv_sunset"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="5:45 PM" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="5dp" />
-
-
-                        </LinearLayout>
-
-                        <Space
-                            android:layout_width="20dp"
-                            android:layout_height="match_parent" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="#A6A6E1FA"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:src="@drawable/wind"
-                                app:tint="#28303E" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="10dp" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Wind" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="5dp" />
-
-                            <TextView
-                                android:id="@+id/tv_wind"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="10 Km" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="5dp" />
-
-
-                        </LinearLayout>
-
-
-                    </LinearLayout>
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/sunrise"
+                        app:tint="#28303E" />
 
                     <Space
                         android:layout_width="match_parent"
-                        android:layout_height="20dp" />
+                        android:layout_height="10dp" />
 
-                    <LinearLayout
-                        android:id="@+id/linearLayout2"
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Sunrise" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="#A6A6E1FA"
-                            android:orientation="vertical">
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp" />
 
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:src="@drawable/pressure"
-                                app:tint="#28303E" />
+                    <TextView
+                        android:id="@+id/tv_sunrise"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="5:45 AM" />
 
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="10dp" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Pressure" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="5dp" />
-
-                            <TextView
-                                android:id="@+id/tv_pressure"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="5:45" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="5dp" />
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp" />
 
 
-                        </LinearLayout>
+                </LinearLayout>
 
-                        <Space
-                            android:layout_width="20dp"
-                            android:layout_height="match_parent" />
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent" />
 
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="#a6e1fa"
-                            android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#A6A6E1FA"
+                    android:orientation="vertical">
 
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:src="@drawable/humidity"
-                                app:tint="#28303E" />
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/sunset"
+                        app:tint="#28303E" />
 
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="10dp" />
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Humidity" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Sunset" />
 
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="5dp" />
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp" />
 
-                            <TextView
-                                android:id="@+id/tv_humidity"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="5:45" />
+                    <TextView
+                        android:id="@+id/tv_sunset"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="5:45 PM" />
 
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="5dp" />
-
-
-                        </LinearLayout>
-
-                        <Space
-                            android:layout_width="20dp"
-                            android:layout_height="match_parent" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:background="#A6A6E1FA"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
-                                android:layout_gravity="center"
-                                android:layout_marginTop="5dp"
-                                android:src="@drawable/info"
-                                app:tint="#28303E" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="10dp" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Created By" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="5dp" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="MkrDeveloper" />
-
-                            <Space
-                                android:layout_width="match_parent"
-                                android:layout_height="5dp" />
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp" />
 
 
-                        </LinearLayout>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#A6A6E1FA"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/wind"
+                        app:tint="#28303E" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Wind" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp" />
+
+                    <TextView
+                        android:id="@+id/tv_wind"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="10 Km" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp" />
 
 
-                    </LinearLayout>
                 </LinearLayout>
 
 
-                <TextView
-                    android:id="@+id/tv_forecast"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="15dp"
-                    android:text="Four Days Forcast" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_forecast"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    tools:listitem="@layout/card_layout" />
             </LinearLayout>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
 
-        </ScrollView>
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#A6A6E1FA"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/pressure"
+                        app:tint="#28303E" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Pressure" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp" />
+
+                    <TextView
+                        android:id="@+id/tv_pressure"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="5:45" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp" />
+
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#a6e1fa"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/humidity"
+                        app:tint="#28303E" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Humidity" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp" />
+
+                    <TextView
+                        android:id="@+id/tv_humidity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="5:45" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp" />
+
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#A6A6E1FA"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/info"
+                        app:tint="#28303E" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Created By" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="MkrDeveloper" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="5dp" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+
+            <TextView
+                android:id="@+id/tv_forecast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="45dp"
+                android:text="Four Days Forcast" />
+
+            <ImageView
+                android:id="@+id/img_forecast"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:srcCompat="@drawable/ic_down" />
+
+        </LinearLayout>
 
 
         <LinearLayout
@@ -392,7 +386,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="50dp"
             android:layout_marginEnd="1dp"
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -425,7 +419,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            app:layout_constraintBottom_toTopOf="@+id/scrollView"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -471,12 +465,23 @@
                 android:id="@+id/tv_max_temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:text="Max temp"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/tv_min_temp"
-                app:layout_constraintTop_toBottomOf="@+id/tv_temp" />
+                app:layout_constraintTop_toBottomOf="@+id/img_weather" />
+
+            <ImageView
+                android:id="@+id/img_weather"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@+id/tv_temp"
+                app:layout_constraintStart_toStartOf="@+id/tv_temp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_temp"
+                app:srcCompat="@drawable/humidity" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
