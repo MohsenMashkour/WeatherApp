@@ -43,7 +43,7 @@
             android:id="@+id/linearLayout4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             android:orientation="vertical"
             android:weightSum="1"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
@@ -262,7 +262,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="#a6e1fa"
+                    android:background="#A6A6E1FA"
                     android:orientation="vertical">
 
                     <ImageView
@@ -368,7 +368,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="0dp"
                 android:text="Four Days Forcast" />
 
             <ImageView
@@ -386,7 +386,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="1dp"
-            android:layout_marginTop="50dp"
             android:layout_marginEnd="1dp"
             android:gravity="center_horizontal"
             android:orientation="vertical"
@@ -418,7 +417,6 @@
             android:id="@+id/constraintLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

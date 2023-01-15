@@ -1,5 +1,6 @@
 package com.mkrdeveloper.weatherapp
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import com.mkrdeveloper.weatherapp.adapters.RvAdapter
 import com.mkrdeveloper.weatherapp.databinding.ActivityMainBinding
 import com.mkrdeveloper.weatherapp.databinding.BottomSheetBinding
@@ -23,48 +30,79 @@ import retrofit2.awaitResponse
 import retrofit2.converter.gson.GsonConverterFactory
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 class MainActivity : AppCompatActivity() {
 
-    private val CITY: String = "poznan"
+    private val city: String = "poznan"
     private val BASE_URL: String = "https://api.openweathermap.org/data/2.5/"
 
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var binding2: BottomSheetBinding
-    lateinit var forecastArray : ArrayList<Forecast>
+    private lateinit var forecastArray: ArrayList<Forecast>
 
-    lateinit var dialog : BottomSheetDialog
+    private lateinit var dialog: BottomSheetDialog
 
-    //val API : String = "bef83524693fb6717b1bc60c2a919263"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        binding2 = BottomSheetBinding.inflate(layoutInflater)
-
-        dialog = BottomSheetDialog(this,R.style.BottomSheetTheme)
-
-        dialog.setContentView(binding2.root)
-
-        setContentView(binding.root)
+        setBindings()
+        chPermission()
 
         binding.subLayout.visibility = View.GONE
         binding.progressBar.visibility = View.VISIBLE
 
-        forecastArray = arrayListOf()
 
-
-
-        getWeather()
-        getForecast()
 
         binding.imgForecast.setOnClickListener {
             openForecast()
         }
 
     }
+
+
+    private fun chPermission() {
+
+
+
+        Dexter.withContext(this)
+            .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+            .withListener(object : PermissionListener {
+                override fun onPermissionGranted(response: PermissionGrantedResponse) {
+                    getWeather()
+                    getForecast()
+                }
+
+                override fun onPermissionDenied(response: PermissionDeniedResponse) {
+                    Toast.makeText(
+                    applicationContext,
+                    "please grant the permission",
+                    Toast.LENGTH_SHORT
+                ).show()
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    permission: PermissionRequest,
+                    token: PermissionToken
+                ) {
+                    token.continuePermissionRequest()
+                }
+            }).check()
+    }
+
+    private fun setBindings() {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding2 = BottomSheetBinding.inflate(layoutInflater)
+
+        dialog = BottomSheetDialog(this, R.style.BottomSheetTheme)
+
+        dialog.setContentView(binding2.root)
+
+        setContentView(binding.root)
+    }
+
 
     @SuppressLint("InflateParams")
     private fun openForecast() {
@@ -74,7 +112,9 @@ class MainActivity : AppCompatActivity() {
 
 
         binding2.rvForecast.setHasFixedSize(true)
-        binding2.rvForecast.layoutManager = GridLayoutManager(this,1, RecyclerView.HORIZONTAL,false)
+        binding2.rvForecast.layoutManager =
+            GridLayoutManager(this, 1, RecyclerView.HORIZONTAL, false)
+
         dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
         dialog.show()
 
@@ -98,7 +138,7 @@ class MainActivity : AppCompatActivity() {
 
             val response: Response<WeatherForecastData> =
                 api.getForecastWeather(
-                    CITY,
+                    city,
                     "metric",
                     applicationContext.getString(R.string.api_key)
                 )
@@ -108,12 +148,14 @@ class MainActivity : AppCompatActivity() {
 
                 val data = response.body()!!
 
+                forecastArray = arrayListOf()
+
                 forecastArray = data.list as ArrayList<Forecast>
 
 
 
                 withContext(Dispatchers.Main) {
-                 val adapter = RvAdapter(forecastArray)
+                    val adapter = RvAdapter(forecastArray)
                     binding2.rvForecast.adapter = adapter
 
                 }
@@ -137,7 +179,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 val response: Response<WeatherData> =
                     api.getCurrentWeather(
-                        CITY,
+                        city,
                         "metric",
                         applicationContext.getString(R.string.api_key)
                     )
@@ -187,11 +229,13 @@ class MainActivity : AppCompatActivity() {
                         binding.tvHumidity.text = "${data.main.humidity}%"
                         binding.tvPressure.text = "${data.main.pressure} hPa"
                         binding.tvUpdateTime.text =
-                            "Last update: ${SimpleDateFormat(
-                                "hh:mm a",
-                                Locale.US
-                                // ).format(System.currentTimeMillis())
-                            ).format(data.dt * 1000)}"
+                            "Last update: ${
+                                SimpleDateFormat(
+                                    "hh:mm a",
+                                    Locale.US
+                                    // ).format(System.currentTimeMillis())
+                                ).format(data.dt * 1000)
+                            }"
 
                         Log.d("mkrrrrrrrr", data.dt.toString())
                     }
