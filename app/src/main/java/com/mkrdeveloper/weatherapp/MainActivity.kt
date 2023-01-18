@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         fetchLocation()
 
 
-        binding.subLayout.visibility = View.GONE
+       // binding.subLayout.visibility = View.GONE
         binding.progressBar.visibility = View.VISIBLE
 
         val pollutionFragment = PollutionFragment()
@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
                 replace(R.id.frameLayout, pollutionFragment)
                     .addToBackStack(null)
                     .commit()
-                binding.subLayout.visibility = View.GONE
+               // binding.subLayout.visibility = View.GONE
             }
         }
 
