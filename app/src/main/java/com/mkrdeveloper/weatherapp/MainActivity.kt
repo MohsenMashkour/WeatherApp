@@ -2,13 +2,20 @@ package com.mkrdeveloper.weatherapp
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.PermissionToken
@@ -43,44 +50,66 @@ class MainActivity : AppCompatActivity() {
     private lateinit var forecastArray: ArrayList<Forecast>
 
     private lateinit var dialog: BottomSheetDialog
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setBindings()
-        chPermission()
+        // chPermission()
+
+        fetchLocation()
+
 
         binding.subLayout.visibility = View.GONE
         binding.progressBar.visibility = View.VISIBLE
 
+        val pollutionFragment = PollutionFragment()
 
+        binding.LinPollution.setOnClickListener {
+
+            supportFragmentManager.beginTransaction().apply {
+                replace(R.id.frameLayout, pollutionFragment)
+                    .addToBackStack(null)
+                    .commit()
+                binding.subLayout.visibility = View.GONE
+            }
+        }
+
+
+        /*onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                binding.subLayout.visibility = View.VISIBLE
+            }
+
+        })*/
 
         binding.imgForecast.setOnClickListener {
             openForecast()
+            fetchLocation()
         }
 
     }
 
 
-    private fun chPermission() {
 
+    private fun chPermission() {
 
 
         Dexter.withContext(this)
             .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
             .withListener(object : PermissionListener {
                 override fun onPermissionGranted(response: PermissionGrantedResponse) {
-                    getWeather()
-                    getForecast()
+
                 }
 
                 override fun onPermissionDenied(response: PermissionDeniedResponse) {
                     Toast.makeText(
-                    applicationContext,
-                    "please grant the permission",
-                    Toast.LENGTH_SHORT
-                ).show()
+                        applicationContext,
+                        "please grant the permission",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 override fun onPermissionRationaleShouldBeShown(
@@ -90,6 +119,33 @@ class MainActivity : AppCompatActivity() {
                     token.continuePermissionRequest()
                 }
             }).check()
+    }
+
+    private fun fetchLocation() {
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+
+        val task: Task<Location> = fusedLocationProviderClient.lastLocation
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                101
+            )
+            return
+        }
+        task.addOnSuccessListener {
+            getWeather(it.latitude, it.longitude)
+            getForecast(it.latitude, it.longitude)
+        }
+
     }
 
     private fun setBindings() {
@@ -122,8 +178,9 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+    @SuppressLint("SetTextI18n")
     @OptIn(DelicateCoroutinesApi::class)
-    private fun getForecast() {
+    private fun getForecast(latitude: Double, longitude: Double) {
 
 
         val api = Retrofit.Builder()
@@ -138,7 +195,8 @@ class MainActivity : AppCompatActivity() {
 
             val response: Response<WeatherForecastData> =
                 api.getForecastWeather(
-                    city,
+                    latitude,
+                    longitude,
                     "metric",
                     applicationContext.getString(R.string.api_key)
                 )
@@ -150,6 +208,8 @@ class MainActivity : AppCompatActivity() {
 
                 forecastArray = arrayListOf()
 
+
+
                 forecastArray = data.list as ArrayList<Forecast>
 
 
@@ -157,7 +217,7 @@ class MainActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     val adapter = RvAdapter(forecastArray)
                     binding2.rvForecast.adapter = adapter
-
+                    binding2.tvSheet.text = "Four days forecast in ${data.city.name}"
                 }
             }
         }
@@ -166,7 +226,8 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     @OptIn(DelicateCoroutinesApi::class)
-    private fun getWeather() {
+    private fun getWeather(latitude: Double, longitude: Double) {
+
         val api = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -179,7 +240,8 @@ class MainActivity : AppCompatActivity() {
             try {
                 val response: Response<WeatherData> =
                     api.getCurrentWeather(
-                        city,
+                        latitude,
+                        longitude,
                         "metric",
                         applicationContext.getString(R.string.api_key)
                     )

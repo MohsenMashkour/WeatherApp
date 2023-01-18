@@ -10,14 +10,16 @@ interface ApiRequest {
 
     @GET("weather?")
     fun getCurrentWeather(
-        @Query("q") city: String,
+        @Query("lat") lat: Double,
+        @Query("lon") lon: Double,
         @Query("units") units: String,
         @Query("appid") apiKey: String
     ): Call<WeatherData>
 
     @GET("forecast?")
     fun getForecastWeather(
-        @Query("q") city: String,
+        @Query("lat") lat: Double,
+        @Query("lon") lon: Double,
         @Query("units") units: String,
         @Query("appid") apiKey: String
     ): Call<WeatherForecastData>

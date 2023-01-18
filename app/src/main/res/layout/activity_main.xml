@@ -9,6 +9,7 @@
     android:padding="35dp"
     tools:context=".MainActivity">
 
+
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
@@ -306,6 +307,7 @@
                     android:layout_height="match_parent" />
 
                 <LinearLayout
+                    android:id="@+id/LinPollution"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -317,7 +319,7 @@
                         android:layout_height="25dp"
                         android:layout_gravity="center"
                         android:layout_marginTop="5dp"
-                        android:src="@drawable/info"
+                        android:src="@drawable/smoke"
                         app:tint="#28303E" />
 
                     <Space
@@ -328,7 +330,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Created By" />
+                        android:text="Air pollution" />
 
                     <Space
                         android:layout_width="match_parent"
@@ -338,7 +340,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="MkrDeveloper" />
+                        android:text="click to see" />
 
                     <Space
                         android:layout_width="match_parent"
@@ -480,10 +482,22 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_temp"
                 app:layout_constraintTop_toBottomOf="@+id/tv_temp"
                 app:srcCompat="@drawable/humidity" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
