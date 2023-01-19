@@ -29,12 +29,14 @@ import com.mkrdeveloper.weatherapp.databinding.BottomSheetBinding
 import com.mkrdeveloper.weatherapp.forecastModels.Forecast
 import com.mkrdeveloper.weatherapp.forecastModels.WeatherForecastData
 import com.mkrdeveloper.weatherapp.models.WeatherData
+import com.mkrdeveloper.weatherapp.pillutionModels.Pollution
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.*
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.awaitResponse
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -62,19 +64,21 @@ class MainActivity : AppCompatActivity() {
         fetchLocation()
 
 
-       // binding.subLayout.visibility = View.GONE
+        // binding.subLayout.visibility = View.GONE
         binding.progressBar.visibility = View.VISIBLE
 
         val pollutionFragment = PollutionFragment()
 
         binding.LinPollution.setOnClickListener {
 
+
             supportFragmentManager.beginTransaction().apply {
                 replace(R.id.frameLayout, pollutionFragment)
                     .addToBackStack(null)
                     .commit()
-               // binding.subLayout.visibility = View.GONE
+                // binding.subLayout.visibility = View.GONE
             }
+
         }
 
 
@@ -91,7 +95,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
 
 
     private fun chPermission() {
@@ -142,10 +145,54 @@ class MainActivity : AppCompatActivity() {
             return
         }
         task.addOnSuccessListener {
+            getPollution(it.latitude, it.longitude)
             getWeather(it.latitude, it.longitude)
             getForecast(it.latitude, it.longitude)
+
         }
 
+    }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun getPollution(latitude: Double, longitude: Double) {
+
+
+
+
+        val api = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(ApiRequest::class.java)
+
+        GlobalScope.launch(Dispatchers.IO) {
+            val response: Response<Pollution> =
+                api.getPollutionComponents(
+                    latitude.toInt(),
+                    15,
+                    "metric",
+                    applicationContext.getString(R.string.api_key)
+                )
+                    .awaitResponse()
+
+            if (response.isSuccessful) {
+
+                val data = response.body()!!
+
+                withContext(Dispatchers.Main) {
+                    val num = data.list[0].main.aqi
+
+                    if (num == 1) binding.tvAirQuality.text = "Good"
+                    if (num == 2) binding.tvAirQuality.text = "Fair"
+                    if (num == 3) binding.tvAirQuality.text = "Moderate"
+                    if (num == 4) binding.tvAirQuality.text = "Poor"
+                    if (num == 5) binding.tvAirQuality.text = "Very Poor"
+
+                    Toast.makeText(this@MainActivity,"${data.list[0].components}",Toast.LENGTH_LONG).show()
+                }
+
+            }
+        }
     }
 
     private fun setBindings() {
