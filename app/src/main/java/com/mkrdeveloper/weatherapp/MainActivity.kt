@@ -169,7 +169,7 @@ class MainActivity : AppCompatActivity() {
             val response: Response<Pollution> =
                 api.getPollutionComponents(
                     latitude.toInt(),
-                    15,
+                    longitude.toInt()-1,
                     "metric",
                     applicationContext.getString(R.string.api_key)
                 )
