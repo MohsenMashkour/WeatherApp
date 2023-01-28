@@ -2,7 +2,10 @@ package com.mkrdeveloper.weatherapp
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Address
+import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
@@ -54,11 +57,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var dialog: BottomSheetDialog
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
+    lateinit var pollutionFragment: PollutionFragment
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setBindings()
+
+        pollutionFragment = PollutionFragment()
         // chPermission()
 
         fetchLocation()
@@ -69,25 +76,15 @@ class MainActivity : AppCompatActivity() {
 
         val pollutionFragment = PollutionFragment()
 
-        binding.LinPollution.setOnClickListener {
+       /* binding.LinPollution.setOnClickListener {
 
 
-            supportFragmentManager.beginTransaction().apply {
-                replace(R.id.frameLayout, pollutionFragment)
-                    .addToBackStack(null)
-                    .commit()
-                // binding.subLayout.visibility = View.GONE
-            }
-
-        }
 
 
-        /*onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-                binding.subLayout.visibility = View.VISIBLE
-            }
+        }*/
 
-        })*/
+
+
 
         binding.imgForecast.setOnClickListener {
             openForecast()
@@ -97,32 +94,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    private fun chPermission() {
 
-
-        Dexter.withContext(this)
-            .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
-            .withListener(object : PermissionListener {
-                override fun onPermissionGranted(response: PermissionGrantedResponse) {
-
-                }
-
-                override fun onPermissionDenied(response: PermissionDeniedResponse) {
-                    Toast.makeText(
-                        applicationContext,
-                        "please grant the permission",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-
-                override fun onPermissionRationaleShouldBeShown(
-                    permission: PermissionRequest,
-                    token: PermissionToken
-                ) {
-                    token.continuePermissionRequest()
-                }
-            }).check()
-    }
 
     private fun fetchLocation() {
 
@@ -145,9 +117,17 @@ class MainActivity : AppCompatActivity() {
             return
         }
         task.addOnSuccessListener {
+
+
+            val geocoder = Geocoder(this, Locale.getDefault())
+
+            val address = geocoder.getFromLocation(it.latitude, it.longitude, 10) as List<Address>
+
+
+
             getPollution(it.latitude, it.longitude)
-            getWeather(it.latitude, it.longitude)
-            getForecast(it.latitude, it.longitude)
+            getWeather(address[0].locality)
+            getForecast(address[0].locality)
 
         }
 
@@ -155,8 +135,6 @@ class MainActivity : AppCompatActivity() {
 
     @OptIn(DelicateCoroutinesApi::class)
     private fun getPollution(latitude: Double, longitude: Double) {
-
-
 
 
         val api = Retrofit.Builder()
@@ -168,8 +146,8 @@ class MainActivity : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.IO) {
             val response: Response<Pollution> =
                 api.getPollutionComponents(
-                    latitude.toInt(),
-                    longitude.toInt()-1,
+                    latitude,
+                    longitude,
                     "metric",
                     applicationContext.getString(R.string.api_key)
                 )
@@ -188,7 +166,30 @@ class MainActivity : AppCompatActivity() {
                     if (num == 4) binding.tvAirQuality.text = "Poor"
                     if (num == 5) binding.tvAirQuality.text = "Very Poor"
 
-                    Toast.makeText(this@MainActivity,"${data.list[0].components}",Toast.LENGTH_LONG).show()
+
+
+                    binding.LinPollution.setOnClickListener {
+                        val bundle = Bundle()
+                        bundle.putDouble("co",data.list[0].components.co)
+                        bundle.putDouble("nh3",data.list[0].components.nh3)
+                        bundle.putDouble("no",data.list[0].components.no)
+                        bundle.putDouble("no2",data.list[0].components.no2)
+                        bundle.putDouble("o3",data.list[0].components.o3)
+                        bundle.putDouble("pm10",data.list[0].components.pm10)
+                        bundle.putDouble("pm2_5",data.list[0].components.pm2_5)
+                        bundle.putDouble("so2",data.list[0].components.so2)
+
+                        pollutionFragment.arguments = bundle
+
+
+                        supportFragmentManager.beginTransaction().apply {
+                            replace(R.id.frameLayout, pollutionFragment)
+                                .addToBackStack(null)
+                                .commit()
+
+                        }
+                    }
+
                 }
 
             }
@@ -211,7 +212,7 @@ class MainActivity : AppCompatActivity() {
     private fun openForecast() {
 
 
-        //val openDialog = layoutInflater.inflate(R.layout.bottom_sheet,null)
+//val openDialog = layoutInflater.inflate(R.layout.bottom_sheet,null)
 
 
         binding2.rvForecast.setHasFixedSize(true)
@@ -227,7 +228,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     @OptIn(DelicateCoroutinesApi::class)
-    private fun getForecast(latitude: Double, longitude: Double) {
+    private fun getForecast(city: String) {
 
 
         val api = Retrofit.Builder()
@@ -242,8 +243,7 @@ class MainActivity : AppCompatActivity() {
 
             val response: Response<WeatherForecastData> =
                 api.getForecastWeather(
-                    latitude,
-                    longitude,
+                    "poznan",
                     "metric",
                     applicationContext.getString(R.string.api_key)
                 )
@@ -273,7 +273,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     @OptIn(DelicateCoroutinesApi::class)
-    private fun getWeather(latitude: Double, longitude: Double) {
+    private fun getWeather(city: String) {
 
         val api = Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -287,8 +287,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 val response: Response<WeatherData> =
                     api.getCurrentWeather(
-                        latitude,
-                        longitude,
+                        "poznan",
                         "metric",
                         applicationContext.getString(R.string.api_key)
                     )

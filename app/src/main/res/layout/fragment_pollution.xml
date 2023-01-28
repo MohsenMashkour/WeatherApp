@@ -12,16 +12,27 @@
         android:background="@drawable/background"
         android:padding="25dp">
 
-        <ImageView
-            android:id="@+id/imageView"
+        <TextView
+            android:id="@+id/tv_fr_pollution"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/polution_demo"
+            android:text="pollution data"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/bar_chart"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:outlineSpotShadowColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.748" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_fr_pollution">
+
+        </com.github.mikephil.charting.charts.BarChart>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

@@ -3,7 +3,7 @@ package com.mkrdeveloper.weatherapp.pillutionModels
 data class Components(
     val co: Double,
     val nh3: Double,
-    val no: Int,
+    val no: Double,
     val no2: Double,
     val o3: Double,
     val pm10: Double,

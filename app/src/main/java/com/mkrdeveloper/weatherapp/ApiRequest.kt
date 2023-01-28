@@ -11,24 +11,22 @@ interface ApiRequest {
 
     @GET("weather?")
     fun getCurrentWeather(
-        @Query("lat") lat: Double,
-        @Query("lon") lon: Double,
+        @Query("q") city: String,
         @Query("units") units: String,
         @Query("appid") apiKey: String
     ): Call<WeatherData>
 
     @GET("forecast?")
     fun getForecastWeather(
-        @Query("lat") lat: Double,
-        @Query("lon") lon: Double,
+        @Query("q") city: String,
         @Query("units") units: String,
         @Query("appid") apiKey: String
     ): Call<WeatherForecastData>
 
     @GET("air_pollution?")
     fun getPollutionComponents(
-        @Query("lat") lat: Int,
-        @Query("lon") lon: Int,
+        @Query("lat") lat: Double,
+        @Query("lon") lon: Double,
         @Query("units") units: String,
         @Query("appid") apiKey: String
     ): Call<Pollution>
