@@ -477,8 +477,8 @@
 
             <ImageView
                 android:id="@+id/img_weather"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="@+id/tv_temp"
                 app:layout_constraintStart_toStartOf="@+id/tv_temp"

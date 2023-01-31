@@ -3,13 +3,11 @@ package com.mkrdeveloper.weatherapp
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.graphics.blue
+import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
@@ -42,12 +40,12 @@ class PollutionFragment : Fragment() {
         val no2: Double? = data?.getDouble("no2")
         val o3: Double? = data?.getDouble("o3")
         val pm10: Double? = data?.getDouble("pm10")
-        val pm2_5: Double? = data?.getDouble("pm2_5")
+        val pm25: Double? = data?.getDouble("pm2_5")
         val so2: Double? = data?.getDouble("so2")
 
         txt.text = " co: $co\n nh3: $nh3\n no: $no\n" +
                 " no2: $no2\n o3: $o3\n" +
-                " pm10: $pm10\n pm2_5: $pm2_5\n" +
+                " pm10: $pm10\n pm2_5: $pm25\n" +
                 " so2: $so2\n"
 
         // Toast.makeText(context, ""+co+nh3+no+no2+o3+pm10+pm2_5+so2,Toast.LENGTH_LONG).show()
@@ -77,8 +75,8 @@ class PollutionFragment : Fragment() {
         if (pm10 != null) {
             list.add(BarEntry(6f, pm10.toFloat()))
         }
-        if (pm2_5 != null) {
-            list.add(BarEntry(7f, pm2_5.toFloat()))
+        if (pm25 != null) {
+            list.add(BarEntry(7f, pm25.toFloat()))
         }
         if (so2 != null) {
             list.add(BarEntry(8f, so2.toFloat()))
@@ -111,11 +109,11 @@ class PollutionFragment : Fragment() {
         barChart.data = barData
 
         barChart.description.text = "Air pollution"
-        barChart.animateY(2000)
+        barChart.animateY(1000)
 
         barChart.setDrawValueAboveBar(false)
 
-        val quarters = arrayOf("", "co", "nh3", "no", "NO2", "PM10", "O3", "PM25", "so2")
+        val quarters = arrayOf("", "CO", "NH3", "NO", "NO2", "PM10", "O3", "PM2_5", "so2")
         val formatter: ValueFormatter = object : ValueFormatter() {
             override fun getAxisLabel(value: Float, axis: AxisBase): String {
                 return quarters[value.toInt()]

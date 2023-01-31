@@ -55,8 +55,8 @@
 
         <ImageView
             android:id="@+id/img_item"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
             android:layout_marginTop="15dp"
             app:layout_constraintBottom_toTopOf="@+id/tv_Item_time"
             app:layout_constraintEnd_toEndOf="parent"

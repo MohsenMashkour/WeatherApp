@@ -71,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         fetchLocation()
 
 
-        // binding.subLayout.visibility = View.GONE
+         binding.subLayout.visibility = View.GONE
         binding.progressBar.visibility = View.VISIBLE
 
         val pollutionFragment = PollutionFragment()
