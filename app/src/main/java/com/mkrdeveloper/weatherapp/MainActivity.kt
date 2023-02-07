@@ -2,7 +2,6 @@ package com.mkrdeveloper.weatherapp
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
@@ -11,7 +10,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -20,12 +18,6 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.karumi.dexter.Dexter
-import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
-import com.karumi.dexter.listener.PermissionRequest
-import com.karumi.dexter.listener.single.PermissionListener
 import com.mkrdeveloper.weatherapp.adapters.RvAdapter
 import com.mkrdeveloper.weatherapp.databinding.ActivityMainBinding
 import com.mkrdeveloper.weatherapp.databinding.BottomSheetBinding
@@ -39,7 +31,6 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.awaitResponse
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -71,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         fetchLocation()
 
 
-         binding.subLayout.visibility = View.GONE
+        // binding.subLayout.visibility = View.GONE
         binding.progressBar.visibility = View.VISIBLE
 
         val pollutionFragment = PollutionFragment()
@@ -126,8 +117,8 @@ class MainActivity : AppCompatActivity() {
 
 
             getPollution(it.latitude, it.longitude)
-            getWeather(address[0].locality)
-            getForecast(address[0].locality)
+            getWeather()
+            getForecast()
 
         }
 
@@ -160,11 +151,11 @@ class MainActivity : AppCompatActivity() {
                 withContext(Dispatchers.Main) {
                     val num = data.list[0].main.aqi
 
-                    if (num == 1) binding.tvAirQuality.text = "Good"
-                    if (num == 2) binding.tvAirQuality.text = "Fair"
-                    if (num == 3) binding.tvAirQuality.text = "Moderate"
-                    if (num == 4) binding.tvAirQuality.text = "Poor"
-                    if (num == 5) binding.tvAirQuality.text = "Very Poor"
+                    if (num == 1) binding.tvAirQuality.text = getString(R.string.good)
+                    if (num == 2) binding.tvAirQuality.text = getString(R.string.fair)
+                    if (num == 3) binding.tvAirQuality.text = getString(R.string.moderate)
+                    if (num == 4) binding.tvAirQuality.text = getString(R.string.poor)
+                    if (num == 5) binding.tvAirQuality.text = getString(R.string.very_poor)
 
 
 
@@ -228,7 +219,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     @OptIn(DelicateCoroutinesApi::class)
-    private fun getForecast(city: String) {
+    private fun getForecast() {
 
 
         val api = Retrofit.Builder()
@@ -273,7 +264,7 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     @OptIn(DelicateCoroutinesApi::class)
-    private fun getWeather(city: String) {
+    private fun getWeather() {
 
         val api = Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -332,6 +323,7 @@ class MainActivity : AppCompatActivity() {
                         binding.tvWind.text = "${data.wind.speed} Km/h"
                         binding.tvLocation.text = "${data.name}\n${data.sys.country}"
                         binding.tvTemp.text = "${data.main.temp.toInt()}°C"
+                        binding.tvFeelsLike.text = "Feels Like: ${data.main.feels_like}°C"
                         binding.tvMinTemp.text = "min temp: ${data.main.temp_min}°C"
                         binding.tvMaxTemp.text = "max temp: ${data.main.temp_max}°C"
                         binding.tvHumidity.text = "${data.main.humidity}%"

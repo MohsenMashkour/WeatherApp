@@ -473,7 +473,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/tv_min_temp"
-                app:layout_constraintTop_toBottomOf="@+id/img_weather" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_feels_like" />
 
             <ImageView
                 android:id="@+id/img_weather"
@@ -484,6 +484,17 @@
                 app:layout_constraintStart_toStartOf="@+id/tv_temp"
                 app:layout_constraintTop_toBottomOf="@+id/tv_temp"
                 app:srcCompat="@drawable/humidity" />
+
+            <TextView
+                android:id="@+id/tv_feels_like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Feels like"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="@+id/img_weather"
+                app:layout_constraintStart_toStartOf="@+id/img_weather"
+                app:layout_constraintTop_toBottomOf="@+id/img_weather" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

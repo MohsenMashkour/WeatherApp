@@ -2,4 +2,9 @@
     <string name="app_name">WeatherApp</string>
     <string name="api_key">bef83524693fb6717b1bc60c2a919263</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="good">Good</string>
+    <string name="fair">Fair</string>
+    <string name="moderate">Moderate</string>
+    <string name="poor">Poor</string>
+    <string name="very_poor">Very Poor</string>
 </resources>
