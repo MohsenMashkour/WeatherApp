@@ -74,7 +74,8 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="5dp"
                         android:src="@drawable/sunrise"
-                        app:tint="#28303E" />
+                        app:tint="#28303E"
+                        android:contentDescription="@string/sunrise" />
 
                     <Space
                         android:layout_width="match_parent"
@@ -84,7 +85,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Sunrise" />
+                        android:text="@string/sunrise" />
 
                     <Space
                         android:layout_width="match_parent"
@@ -455,7 +456,7 @@
                 android:id="@+id/tv_min_temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Min temp"
+                android:text="@string/min_temp"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_max_temp"
                 app:layout_constraintEnd_toStartOf="@+id/tv_max_temp"
@@ -468,7 +469,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Max temp"
+                android:text="@string/max_temp"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -477,7 +478,7 @@
 
             <ImageView
                 android:id="@+id/img_weather"
-                android:layout_width="75dp"
+                android:layout_width="95dp"
                 android:layout_height="75dp"
                 android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="@+id/tv_temp"
@@ -490,7 +491,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Feels like"
+                android:text="@string/feels_like"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="@+id/img_weather"
                 app:layout_constraintStart_toStartOf="@+id/img_weather"
